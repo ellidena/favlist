@@ -1,19 +1,19 @@
 package com.favlist.model;
 
 public class Item {
-    private int id;
+    private int itemId;
     private int categoryId;
     private String name;
     private String description;
 
     public Item(){}
 
-    public int getId() {
-        return id;
+    public int getItemId() {
+        return itemId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public String getName() {
