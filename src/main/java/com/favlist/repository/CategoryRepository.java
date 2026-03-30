@@ -26,4 +26,17 @@ public class CategoryRepository {
         String sql = "SELECT * FROM category ORDER BY name";
         return jdbc.query(sql, categoryRowMapper);
     }
+
+    public Category findById(int id) {
+        String sql = "SELECT * FROM category WHERE category_id ? ?";
+        return jdbc.queryForObject(sql, categoryRowMapper, id);
+    }
+
+    //For future version to add and edit categories:
+
+    // insert(Category category)
+
+    // update(Category category)
+
+    // delete(int id)
 }
