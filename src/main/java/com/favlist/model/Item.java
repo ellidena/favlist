@@ -12,6 +12,14 @@ public class Item {
         return itemId;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
