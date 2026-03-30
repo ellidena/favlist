@@ -1,5 +1,5 @@
 -- USERS
-INSERT INTO user (name, username, password)
+INSERT INTO users (name, username, password)
 VALUES ('Daniella Norgren', 'dani','dani123');
 
 -- WISHLIST
