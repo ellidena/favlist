@@ -1,20 +1,11 @@
 package com.favlist.model;
 
 public class WishlistEntry {
-    private int id;
     private int itemId;
     private int wishlistId;
     private String note;
 
     public WishlistEntry(){}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getItemId() {
         return itemId;
