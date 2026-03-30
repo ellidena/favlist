@@ -28,4 +28,9 @@ public class ItemRepository {
         String sql = "SELECT * FROM item ORDER BY name";
         return jdbc.query(sql, itemRowMapper);
     }
+
+    public Item findById(int id) {
+        String sql = "SELECT * FROM item WHERE item_id = ?";
+        return jdbc.queryForObject(sql, itemRowMapper, id);
+    }
 }
