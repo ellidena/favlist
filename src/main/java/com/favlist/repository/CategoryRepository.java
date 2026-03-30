@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CategoryRepository {
     private final JdbcTemplate jdbc;
@@ -19,4 +21,9 @@ public class CategoryRepository {
         c.setName(rs.getString("name"));
         return c;
     };
+
+    public List<Category> findAll() {
+        String sql = "SELECT * FROM category ORDER BY name";
+        return jdbc.query(sql, categoryRowMapper);
+    }
 }
