@@ -33,4 +33,9 @@ public class ItemRepository {
         String sql = "SELECT * FROM item WHERE item_id = ?";
         return jdbc.queryForObject(sql, itemRowMapper, id);
     }
+
+    public List<Item> findByCategory(int categoryId) {
+        String sql = "SELECT * FROM item WHERE category_id = ? ORDER BY name";
+        return jdbc.query(sql, itemRowMapper, categoryId);
+    }
 }
