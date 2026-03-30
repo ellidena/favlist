@@ -1,19 +1,19 @@
 package com.favlist.model;
 
 public class User {
-    private int id;
+    private int userId;
     private String name;
     private String username;
     private String password;
 
     public User(){}
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
