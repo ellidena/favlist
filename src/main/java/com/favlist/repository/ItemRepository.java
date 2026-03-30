@@ -38,4 +38,10 @@ public class ItemRepository {
         String sql = "SELECT * FROM item WHERE category_id = ? ORDER BY name";
         return jdbc.query(sql, itemRowMapper, categoryId);
     }
+
+    // insert(Item item)
+
+    // update(Item item)
+
+    // delete(int id)
 }
