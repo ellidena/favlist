@@ -8,7 +8,7 @@ VALUES (1);
 
 -- CATEGORIES
 INSERT INTO category (name)
-VALUES ('Books','Electronics');
+VALUES ('Books'),('Electronics');
 
 -- ITEMS
 INSERT INTO item (name, description, category_id)

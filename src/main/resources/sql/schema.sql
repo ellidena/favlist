@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS wishlist_entry;
+DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS wishlist;
+DROP TABLE IF EXISTS user;
+
 /*
 - Created first because the other tables depend on it.
 - Stores login + profile information.
