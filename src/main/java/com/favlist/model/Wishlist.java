@@ -1,17 +1,17 @@
 package com.favlist.model;
 
 public class Wishlist {
-    private int id;
+    private int wishlistId;
     private int userId;
 
     public Wishlist(){}
 
-    public int getId() {
-        return id;
+    public int getWishlistId() {
+        return wishlistId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setWishlistId(int wishlistId) {
+        this.wishlistId = wishlistId;
     }
 
     public int getUserId() {
