@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ItemRepository {
     private final JdbcTemplate jdbc;
@@ -21,4 +23,9 @@ public class ItemRepository {
         i.setCategoryId(rs.getInt("category_id"));
         return i;
     };
+
+    public List<Item> findAll() {
+        String sql = "SELECT * FROM item ORDER BY name";
+        return jdbc.query(sql, itemRowMapper);
+    }
 }
