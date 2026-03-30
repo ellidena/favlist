@@ -2,14 +2,14 @@ DROP TABLE IF EXISTS wishlist_entry;
 DROP TABLE IF EXISTS item;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS wishlist;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS "user";
 
 /*
 - Created first because the other tables depend on it.
 - Stores login + profile information.
 - username is UNIQUE to two users cannot share the same login.
 */
-CREATE TABLE user (
+CREATE TABLE "user" (
                       user_id      INT AUTO_INCREMENT PRIMARY KEY,
                       name     VARCHAR(100) NOT NULL,
                       username  VARCHAR(100) NOT NULL UNIQUE,
@@ -28,7 +28,7 @@ CREATE TABLE wishlist (
                           user_id      INT NOT NULL,
 
                           FOREIGN KEY (user_id)
-                              REFERENCES user(user_id)
+                              REFERENCES "user"(user_id)
                               ON DELETE CASCADE
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE wishlist_entry (
 );
 
 -- USERS
-INSERT INTO user (name, username, password)
+INSERT INTO "user" (name, username, password)
 VALUES ('Daniella Norgren', 'dani','dani123');
 
 -- WISHLIST
