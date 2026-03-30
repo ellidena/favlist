@@ -1,4 +1,4 @@
 package com.favlist.repository;
 
-public class Repository {
+public class WishlistRepository {
 }
