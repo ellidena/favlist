@@ -46,4 +46,9 @@ public class WishlistEntryRepository {
         return jdbc.update(sql, entry.getNote(), entry.getWishlistId(), entry.getItemId());
     }
 
+    public int delete(int wishlistId, int itemId) {
+        String sql = "DELETE FROM wishlist_entry WHERE wishlist_id = ? AND item_id = ?";
+        return jdbc.update(sql, wishlistId, itemId);
+    }
+
 }

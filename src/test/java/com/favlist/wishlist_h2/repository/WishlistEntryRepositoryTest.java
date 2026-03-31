@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
@@ -67,5 +68,14 @@ public class WishlistEntryRepositoryTest {
 
         WishlistEntry updated = wishlistEntryRepository.findOne(1, 1);
         assertThat(updated.getNote()).isEqualTo("Updated note");
+    }
+
+    @Test
+    void delete_removesEntry() {
+        int rows = wishlistEntryRepository.delete(1, 1);
+        assertThat(rows).isEqualTo(1);
+
+        assertThatThrownBy(() -> wishlistEntryRepository.findOne(1,1))
+                .isInstanceOf(Exception.class);
     }
 }
