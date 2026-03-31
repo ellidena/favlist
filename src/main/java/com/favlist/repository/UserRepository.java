@@ -27,13 +27,15 @@ public class UserRepository {
         return jdbc.queryForObject(sql, userRowMapper, id);
     }
 
-    // Find a user by username (for login)
     public User findByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
         return jdbc.queryForObject(sql, userRowMapper, username);
     }
 
-    // insert a new user
+    public int insert(User user) {
+        String sql = "INSERT INTO users (name, username, password) VALUES (?, ?, ?)";
+        return jdbc.update(sql, user.getName(), user.getUsername(), user.getPassword());
+    }
 
     // update a user (optional, add it later)
 

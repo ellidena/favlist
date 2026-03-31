@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
@@ -31,5 +34,19 @@ public class UserRepositoryTest {
         User user = userRepository.findByUsername("dani");
 
         assertThat(user.getUsername()).isEqualTo("dani");
+    }
+
+    @Test
+    void insert_addsNewUser() {
+        User newUser = new User();
+        newUser.setName("Gabriella");
+        newUser.setUsername("bella");
+        newUser.setPassword("pw");
+
+        int rows = userRepository.insert(newUser);
+        assertThat(rows).isEqualTo(1);
+
+        User fetched = userRepository.findByUsername("bella");
+        assertThat(fetched.getName()).isEqualTo("Gabriella");
     }
 }
