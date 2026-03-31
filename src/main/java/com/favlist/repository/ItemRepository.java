@@ -55,4 +55,8 @@ public class ItemRepository {
     }
 
     // delete(int id)
+    public int delete(int id) {
+        String sql = "DELETE FROM item WHERE item_id = ?";
+        return jdbc.update(sql, id);
+    }
 }
