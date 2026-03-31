@@ -60,4 +60,16 @@ public class ItemRepositoryTest {
         List<Item> items = itemRepository.findAll();
         assertThat(items).extracting(Item::getName).contains("New Lamp");
     }
+
+    @Test
+    void update_modifiesItem() {
+        Item item = itemRepository.findById(1);
+        item.setName("Updated Hobbit");
+
+        int rows = itemRepository.update(item);
+        assertThat(rows).isEqualTo(1);
+
+        Item updated = itemRepository.findById(1);
+        assertThat(updated.getName()).isEqualTo("Updated Hobbit");
+    }
 }
