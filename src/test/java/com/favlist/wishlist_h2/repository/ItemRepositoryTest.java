@@ -37,4 +37,13 @@ public class ItemRepositoryTest {
 
         assertThat(item.getName()).isEqualTo("The Hobbit");
     }
+
+    @Test
+    void findByCategory_returnsFilteredItems() {
+        List<Item> items = itemRepository.findByCategory(2);
+
+        assertThat(items)
+                .extracting(Item::getName)
+                .containsExactly("Fancy Keyboard", "Kobo Clara");
+    }
 }
