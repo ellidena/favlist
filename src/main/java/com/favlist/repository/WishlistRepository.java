@@ -31,6 +31,11 @@ public class WishlistRepository {
         return jdbc.queryForObject(sql, wishlistRowMapper, id);
     }
 
+    public int insert(int userId) {
+        String sql = "INSERT INTO wishlist (user_id) VALUES (?)";
+        return jdbc.update(sql, userId);
+    }
+
     public int deleteByUserId(int id) {
         String sql = "DELETE FROM wishlist WHERE user_id = ?";
         return jdbc.update(sql, id);

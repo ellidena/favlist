@@ -33,6 +33,12 @@ public class WishlistRepositoryTest {
     }
 
     @Test
+    void insert_createsWishlist() {
+        int rows = wishlistRepository.insert(1);
+        assertThat(rows).isEqualTo(1);
+    }
+
+    @Test
     void deleteByUserId_removesWishlist() {
         int rows = wishlistRepository.deleteByUserId(1);
         assertThat(rows).isEqualTo(1);
