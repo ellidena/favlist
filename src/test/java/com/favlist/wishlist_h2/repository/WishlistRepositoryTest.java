@@ -24,4 +24,10 @@ public class WishlistRepositoryTest {
         Wishlist wishlist = wishlistRepository.findById(1);
         assertThat(wishlist.getUserId()).isEqualTo(1);
     }
+
+    @Test
+    void findByUserId_returnsCorrectWishlist() {
+        Wishlist w = wishlistRepository.findByUserId(1);
+        assertThat(w.getWishlistId()).isEqualTo(1);
+    }
 }
