@@ -30,4 +30,11 @@ public class ItemRepositoryTest {
                 .extracting(Item::getName)
                 .containsExactly("Fancy Keyboard", "Kobo Clara", "The Hobbit");
     }
+
+    @Test
+    void findById_returnsCorrectItem() {
+        Item item = itemRepository.findById(1);
+
+        assertThat(item.getName()).isEqualTo("The Hobbit");
+    }
 }
