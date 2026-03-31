@@ -40,13 +40,12 @@ public class ItemRepository {
     }
 
     public int insert(Item item) {
-        String sql = "INSERT INTO itm (name, description, category_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO item (name, description, category_id) VALUES (?, ?, ?)";
         return jdbc.update(sql, item.getName(), item.getDescription(), item.getCategoryId());
     }
 
-    // update(Item item)
     public int update(Item item) {
-        String sql = "UPDATE item SET name = ?, description = ?, category_id  ? WHERE item_id = ?";
+        String sql = "UPDATE item SET name = ?, description = ?, category_id = ? WHERE item_id = ?";
         return jdbc.update(sql,
                 item.getName(),
                 item.getDescription(),
@@ -54,7 +53,6 @@ public class ItemRepository {
                 item.getItemId());
     }
 
-    // delete(int id)
     public int delete(int id) {
         String sql = "DELETE FROM item WHERE item_id = ?";
         return jdbc.update(sql, id);
