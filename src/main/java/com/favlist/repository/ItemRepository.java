@@ -40,6 +40,10 @@ public class ItemRepository {
     }
 
     // insert(Item item)
+    public int insert(Item item) {
+        String sql = "INSERT INTO itm (name, description, category_id) VALUES (?, ?, ?)";
+        return jdbc.update(sql, item.getName(), item.getDescription(), item.getCategoryId());
+    }
 
     // update(Item item)
 
