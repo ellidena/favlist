@@ -22,13 +22,16 @@ public class UserRepository {
         return u;
     };
 
-    // Find a user by ID
     public  User findById(int id) {
         String sql = "SELECT * FROM users WHERE user_id = ?";
         return jdbc.queryForObject(sql, userRowMapper, id);
     }
 
     // Find a user by username (for login)
+    public User findByUsername(String username) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        return jdbc.queryForObject(sql, userRowMapper, username);
+    }
 
     // insert a new user
 
