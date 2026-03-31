@@ -28,4 +28,14 @@ public class WishlistEntryRepositoryTest {
 
         assertThat(entries).hasSize(2);
     }
+
+    @Test
+    void findOne_returnsCorrectEntry() {
+        WishlistEntry entry = wishlistEntryRepository.findOne(1, 1);
+
+        assertThat(entry).isNotNull();
+        assertThat(entry.getWishlistId()).isEqualTo(1);
+        assertThat(entry.getItemId()).isEqualTo(1);
+        assertThat(entry.getNote()).isEqualTo("Should read this decade");
+    }
 }

@@ -29,4 +29,10 @@ public class WishlistEntryRepository {
         return jdbc.query(sql, wishlistEntryRowMapper, wishlistId);
     }
 
+    // return one entry, useful for editing the note
+    public WishlistEntry findOne(int wishlistId, int itemId) {
+        String sql = "SELECT * FROM wishlist_entry WHERE wishlist_id = ? AND item_id = ?";
+        return jdbc.queryForObject(sql, wishlistEntryRowMapper, wishlistId, itemId);
+    }
+
 }
