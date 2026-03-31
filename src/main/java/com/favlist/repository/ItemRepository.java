@@ -39,13 +39,20 @@ public class ItemRepository {
         return jdbc.query(sql, itemRowMapper, categoryId);
     }
 
-    // insert(Item item)
     public int insert(Item item) {
         String sql = "INSERT INTO itm (name, description, category_id) VALUES (?, ?, ?)";
         return jdbc.update(sql, item.getName(), item.getDescription(), item.getCategoryId());
     }
 
     // update(Item item)
+    public int update(Item item) {
+        String sql = "UPDATE item SET name = ?, description = ?, category_id  ? WHERE item_id = ?";
+        return jdbc.update(sql,
+                item.getName(),
+                item.getDescription(),
+                item.getCategoryId(),
+                item.getItemId());
+    }
 
     // delete(int id)
 }
