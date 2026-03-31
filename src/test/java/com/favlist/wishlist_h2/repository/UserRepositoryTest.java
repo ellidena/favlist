@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
@@ -48,5 +49,14 @@ public class UserRepositoryTest {
 
         User fetched = userRepository.findByUsername("bella");
         assertThat(fetched.getName()).isEqualTo("Gabriella");
+    }
+
+    @Test
+    void delete_removesUser() {
+        int rows = userRepository.delete(1);
+        assertThat(rows).isEqualTo(1);
+
+        assertThatThrownBy(() -> userRepository.findById(1))
+                .isInstanceOf(Exception.class);
     }
 }

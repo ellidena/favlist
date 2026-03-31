@@ -40,4 +40,8 @@ public class UserRepository {
     // update a user (optional, add it later)
 
     // delete a user (should automatically delete their wishlist because of ON DELETE CASCADE
+    public int delete(int id) {
+        String sql = "DELETE FROM users WHERE user_id = ?";
+        return jdbc.update(sql, id);
+    }
 }
