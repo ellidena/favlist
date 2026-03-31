@@ -1,7 +1,6 @@
 package com.favlist.repository;
 
 import com.favlist.model.Wishlist;
-import com.favlist.model.WishlistEntry;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
