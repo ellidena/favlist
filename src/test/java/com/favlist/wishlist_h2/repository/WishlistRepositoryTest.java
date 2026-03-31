@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
@@ -29,5 +30,14 @@ public class WishlistRepositoryTest {
     void findByUserId_returnsCorrectWishlist() {
         Wishlist w = wishlistRepository.findByUserId(1);
         assertThat(w.getWishlistId()).isEqualTo(1);
+    }
+
+    @Test
+    void deleteByUserId_removesWishlist() {
+        int rows = wishlistRepository.deleteByUserId(1);
+        assertThat(rows).isEqualTo(1);
+
+        assertThatThrownBy(() -> wishlistRepository.findByUserId(1))
+                .isInstanceOf(Exception.class);
     }
 }

@@ -30,4 +30,9 @@ public class WishlistRepository {
         String sql = "SELECT * FROM wishlist WHERE user_id = ?";
         return jdbc.queryForObject(sql, wishlistRowMapper, id);
     }
+
+    public int deleteByUserId(int id) {
+        String sql = "DELETE FROM wishlist WHERE user_id = ?";
+        return jdbc.update(sql, id);
+    }
 }
