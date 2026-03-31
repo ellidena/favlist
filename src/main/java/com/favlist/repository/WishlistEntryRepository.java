@@ -41,4 +41,9 @@ public class WishlistEntryRepository {
         return jdbc.update(sql, entry.getWishlistId(), entry.getItemId(), entry.getNote());
     }
 
+    public int updateNote(WishlistEntry entry) {
+        String sql = "UPDATE wishlist_entry SET note = ? WHERE wishlist_id = ? AND item_id = ?";
+        return jdbc.update(sql, entry.getNote(), entry.getWishlistId(), entry.getItemId());
+    }
+
 }

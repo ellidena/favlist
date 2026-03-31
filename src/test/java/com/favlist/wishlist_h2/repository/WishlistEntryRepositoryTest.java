@@ -56,4 +56,16 @@ public class WishlistEntryRepositoryTest {
         assertThat(fetched.getItemId()).isEqualTo(3);
         assertThat(fetched.getNote()).isEqualTo("Adding a new item to wishlist");
     }
+
+    @Test
+    void updateNote_updatesExistingEntry() {
+        WishlistEntry entry = wishlistEntryRepository.findOne(1,1);
+        entry.setNote("Updated note");
+
+        int rows = wishlistEntryRepository.updateNote(entry);
+        assertThat(rows).isEqualTo(1);
+
+        WishlistEntry updated = wishlistEntryRepository.findOne(1, 1);
+        assertThat(updated.getNote()).isEqualTo("Updated note");
+    }
 }
