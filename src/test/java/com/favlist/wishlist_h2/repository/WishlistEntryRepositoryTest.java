@@ -38,4 +38,22 @@ public class WishlistEntryRepositoryTest {
         assertThat(entry.getItemId()).isEqualTo(1);
         assertThat(entry.getNote()).isEqualTo("Should read this decade");
     }
+
+    @Test
+    void insert_addsNewEntry() {
+        WishlistEntry newEntry = new WishlistEntry();
+        newEntry.setWishlistId(1);
+        newEntry.setItemId(3);
+        newEntry.setNote("Adding a new item to wishlist");
+
+        int rows = wishlistEntryRepository.insert(newEntry);
+        assertThat(rows).isEqualTo(1);
+
+        WishlistEntry fetched = wishlistEntryRepository.findOne(1, 3);
+
+        assertThat(fetched).isNotNull();
+        assertThat(fetched.getWishlistId()).isEqualTo(1);
+        assertThat(fetched.getItemId()).isEqualTo(3);
+        assertThat(fetched.getNote()).isEqualTo("Adding a new item to wishlist");
+    }
 }

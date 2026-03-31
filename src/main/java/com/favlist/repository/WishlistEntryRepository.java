@@ -1,5 +1,6 @@
 package com.favlist.repository;
 
+import com.favlist.model.Wishlist;
 import com.favlist.model.WishlistEntry;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,6 +34,11 @@ public class WishlistEntryRepository {
     public WishlistEntry findOne(int wishlistId, int itemId) {
         String sql = "SELECT * FROM wishlist_entry WHERE wishlist_id = ? AND item_id = ?";
         return jdbc.queryForObject(sql, wishlistEntryRowMapper, wishlistId, itemId);
+    }
+
+    public int insert(WishlistEntry entry) {
+        String sql = "INSERT INTO wishlist_entry (wishlist_id, item_id, note) VALUES (?, ?, ?)";
+        return jdbc.update(sql, entry.getWishlistId(), entry.getItemId(), entry.getNote());
     }
 
 }
