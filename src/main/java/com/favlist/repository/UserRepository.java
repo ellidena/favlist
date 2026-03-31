@@ -23,6 +23,10 @@ public class UserRepository {
     };
 
     // Find a user by ID
+    public  User findById(int id) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        return jdbc.queryForObject(sql, userRowMapper, id);
+    }
 
     // Find a user by username (for login)
 
