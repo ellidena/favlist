@@ -46,4 +46,18 @@ public class ItemRepositoryTest {
                 .extracting(Item::getName)
                 .containsExactly("Fancy Keyboard", "Kobo Clara");
     }
+
+    @Test
+    void insert_addsNewItem() {
+        Item newItem = new Item();
+        newItem.setName("New Lamp");
+        newItem.setDescription("A bright lamp");
+        newItem.setCategoryId(1);
+
+        int rows = itemRepository.insert(newItem);
+        assertThat(rows).isEqualTo(1);
+
+        List<Item> items = itemRepository.findAll();
+        assertThat(items).extracting(Item::getName).contains("New Lamp");
+    }
 }
