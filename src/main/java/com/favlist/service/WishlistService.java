@@ -44,6 +44,12 @@ public class WishlistService {
     }
 
     public void addItem(int wishlistId, int itemId, String note) {
+
+        // if already in the wishlist, do nothing
+        if (containsItem(wishlistId, itemId)) {
+            return; // alternatively, throw exception, or log exception
+        }
+
         WishlistEntry entry = new WishlistEntry();
         entry.setWishlistId(wishlistId);
         entry.setItemId(itemId);
