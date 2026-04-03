@@ -1,5 +1,6 @@
 package com.favlist.service;
 
+import com.favlist.model.Category;
 import com.favlist.model.Item;
 import com.favlist.repository.CategoryRepository;
 import com.favlist.repository.ItemRepository;
@@ -37,5 +38,9 @@ public class ItemService {
 
     public Item getItemDetails(int itemId) {
         return itemRepository.findById(itemId);
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }
