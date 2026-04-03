@@ -55,4 +55,13 @@ public class WishlistService {
     public void removeItem(int wishlistId, int itemId){
         wishlistEntryRepository.delete(wishlistId, itemId);
     }
+
+    public void updateNote(int wishlistId, int itemId, String newNote) {
+        WishlistEntry entry = new WishlistEntry();
+        entry.setWishlistId(wishlistId);
+        entry.setItemId(itemId);
+        entry.setNote(newNote);
+
+        wishlistEntryRepository.updateNote(entry);
+    }
 }
