@@ -11,6 +11,12 @@
   <li th:each="entry : ${entries}">
     Item ID: <span th:text="${entry.itemId}"></span>
     Note: <span th:text="${entry.note}"></span>
+
+    <form action="/wishlist/remove" method="post">
+      <input type="hidden" name="itemId" th:value="${entry.itemId}">
+      <button type="submit">Remove</button>
+    </form>
+
   </li>
 </ul>
 
