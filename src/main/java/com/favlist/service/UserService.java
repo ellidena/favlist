@@ -30,4 +30,8 @@ public class UserService {
         userRepository.insert(user);
         wishlistRepository.insert(user.getUserId());
     }
+
+    public User getUser(int userId) {
+        return userRepository.findById(userId);
+    }
 }
