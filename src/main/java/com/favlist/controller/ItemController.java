@@ -1,6 +1,6 @@
 package com.favlist.controller;
 
-import com.favlist.model.Category;
+
 import com.favlist.model.Item;
 import com.favlist.service.ItemService;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/items")

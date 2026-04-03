@@ -6,7 +6,9 @@ import com.favlist.repository.WishlistEntryRepository;
 import com.favlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class WishlistService {
@@ -83,5 +85,16 @@ public class WishlistService {
 
     public int countItems(int wishlistId) {
         return wishlistEntryRepository.findByWishlistId(wishlistId).size();
+    }
+
+    public Set<Integer> getWishlistItemIds(int userId) {
+        Wishlist wishlist = wishlistRepository.findByUserId(userId);
+        List<WishlistEntry> entries = wishlistEntryRepository.findByWishlistId(wishlist.getWishlistId());
+
+        Set<Integer> ids = new HashSet<>();
+        for (WishlistEntry entry : entries) {
+            ids.add(entry.getItemId());
+        }
+        return ids;
     }
 }
