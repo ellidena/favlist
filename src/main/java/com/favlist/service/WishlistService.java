@@ -1,9 +1,12 @@
 package com.favlist.service;
 
 import com.favlist.model.Wishlist;
+import com.favlist.model.WishlistEntry;
 import com.favlist.repository.WishlistEntryRepository;
 import com.favlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WishlistService {
@@ -29,5 +32,9 @@ public class WishlistService {
 
     public Wishlist getWishlistForUser(int userId) {
         return wishlistRepository.findByUserId(userId);
+    }
+
+    public List<WishlistEntry> getEntries(int wishlistId) {
+        return wishlistEntryRepository.findByWishlistId(wishlistId);
     }
 }
