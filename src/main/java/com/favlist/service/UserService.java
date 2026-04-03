@@ -47,4 +47,14 @@ public class UserService {
     public void delete(int userId){
         userRepository.delete(userId);
     }
+
+    // for validation later, and reg form
+    public boolean userNameExists(String username) {
+        try {
+            userRepository.findByUsername(username);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
