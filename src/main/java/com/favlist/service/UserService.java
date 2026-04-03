@@ -1,5 +1,7 @@
 package com.favlist.service;
 
+import com.favlist.model.User;
+import com.favlist.model.Wishlist;
 import com.favlist.repository.UserRepository;
 import com.favlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
@@ -22,5 +24,37 @@ public class UserService {
     ) {
         this.userRepository = userRepository;
         this.wishlistRepository = wishlistRepository;
+    }
+
+    // create a user and their wishlist
+    public void createUser(User user) {
+        userRepository.insert(user);
+        wishlistRepository.insert(user.getUserId());
+    }
+
+    public User getUser(int userId) {
+        return userRepository.findById(userId);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public Wishlist getWishlistForUser(int userId) {
+            return wishlistRepository.findByUserId(userId);
+    }
+
+    public void delete(int userId){
+        userRepository.delete(userId);
+    }
+
+    // for validation later, and reg form
+    public boolean userNameExists(String username) {
+        try {
+            userRepository.findByUsername(username);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
