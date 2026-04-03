@@ -74,4 +74,8 @@ public class WishlistService {
             return false;
         }
     }
+
+    public int countItems(int wishlistId) {
+        return wishlistEntryRepository.findByWishlistId(wishlistId).size();
+    }
 }
