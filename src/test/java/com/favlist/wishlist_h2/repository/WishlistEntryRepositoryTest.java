@@ -28,6 +28,10 @@ public class WishlistEntryRepositoryTest {
         List<WishlistEntry> entries = wishlistEntryRepository.findByWishlistId(1);
 
         assertThat(entries).hasSize(2);
+
+        assertThat(entries)
+                .extracting(WishlistEntry::getItemName)
+                .containsExactlyInAnyOrder("The Hobbit", "Fancy Keyboard");
     }
 
     @Test
