@@ -5,6 +5,17 @@ public class WishlistEntry {
     private int wishlistId;
     private String note;
 
+    // Derived field for UI:
+    private String itemName;
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     public WishlistEntry(){}
 
     public int getItemId() {
