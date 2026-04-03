@@ -12,10 +12,14 @@
     <li th:each="item : ${items}">
         <a th:href="@{'/items/' + ${item.itemId}}"
            th:text="${item.name}">Item name</a>
+
         <form action="/wishlist/add" method="post" style="display:inline;">
             <input type="hidden" name="itemId" th:value="${item.itemId}">
             <input type="hidden" name="note" value="">
-            <button type="submit">Quick Add</button>
+            <button type="submit"
+                    th:disabled="${wishlistItemIds.contains(item.itemId)}"
+                    th:text="${wishlistItemIds.contains(item.itemId)} ? 'Added' : 'Quick Add'">
+            </button>
         </form>
 
     </li>
