@@ -12,6 +12,12 @@
     <li th:each="item : ${items}">
         <a th:href="@{'/items/' + ${item.itemId}}"
            th:text="${item.name}">Item name</a>
+        <form action="/wishlist/add" method="post" style="display:inline;">
+            <input type="hidden" name="itemId" th:value="${item.itemId}">
+            <input type="hidden" name="note" value="">
+            <button type="submit">Add</button>
+        </form>
+
     </li>
 </ul>
 
