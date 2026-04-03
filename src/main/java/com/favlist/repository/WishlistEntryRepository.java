@@ -53,8 +53,17 @@ public class WishlistEntryRepository {
 
     // return one entry, useful for editing the note
     public WishlistEntry findOne(int wishlistId, int itemId) {
-        String sql = "SELECT * FROM wishlist_entry WHERE wishlist_id = ? AND item_id = ?";
-        return jdbc.queryForObject(sql, wishlistEntryRowMapper, wishlistId, itemId);
+        String sql = """
+        SELECT we.wishlist_id,
+               we.item_id,
+               we.note,
+               i.name AS item_name
+        FROM wishlist_entry we
+        JOIN item i ON we.item_id = i.item_id
+        WHERE we.wishlist_id = ? AND we.item_id = ?
+        """;
+
+        return jdbc.queryForObject(sql, entryWithItemNameRowMapper, wishlistId, itemId);
     }
 
     public int insert(WishlistEntry entry) {
