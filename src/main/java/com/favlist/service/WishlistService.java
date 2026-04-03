@@ -51,4 +51,8 @@ public class WishlistService {
 
         wishlistEntryRepository.insert(entry);
     }
+
+    public void removeItem(int wishlistId, int itemId){
+        wishlistEntryRepository.delete(wishlistId, itemId);
+    }
 }
