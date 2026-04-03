@@ -1,6 +1,5 @@
 package com.favlist.controller;
 
-import com.favlist.model.Item;
 import com.favlist.model.Wishlist;
 import com.favlist.model.WishlistEntry;
 import com.favlist.service.UserService;
@@ -51,7 +50,7 @@ public class WishlistController {
         Wishlist wishlist = userService.getWishlistForUser(userId);
 
         wishlistService.removeItem(wishlist.getWishlistId(), itemId);
-        return "redirect:" + (redirect != null ? redirect : "/wishlist");
+        return "redirect:" + (redirect != null ? redirect : "/wishlist/view");
     }
 
     @PostMapping("/update-note")

@@ -1,6 +1,5 @@
 package com.favlist.repository;
 
-import com.favlist.model.Wishlist;
 import com.favlist.model.WishlistEntry;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -44,7 +43,7 @@ public class WishlistEntryRepository {
                    we.note,
                    i.name AS item_name
             FROM wishlist_entry we
-            JOIN item i ON we.item_id = i.item_id 
+            JOIN item i ON we.item_id = i.item_id
             WHERE we.wishlist_id = ?
             """;
 
