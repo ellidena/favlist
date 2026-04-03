@@ -35,14 +35,13 @@ public class WishlistController {
         return "wishlist/view";
     }
 
-    // Todo: Add form
     @PostMapping("/add")
-    public String addItem(@RequestParam int itemId, @RequestParam String note) {
+    public String addItem(@RequestParam int itemId, @RequestParam(required = false) String note) {
         int userId = 1;
         Wishlist wishlist = userService.getWishlistForUser(userId);
 
         wishlistService.addItem(wishlist.getWishlistId(), itemId, note);
-        return "redirect:/wishlist";
+        return "redirect:/items";
     }
 
     @PostMapping("remove")
