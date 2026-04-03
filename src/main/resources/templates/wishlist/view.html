@@ -9,7 +9,9 @@
 
 <ul>
   <li th:each="entry : ${entries}">
-    Item ID: <span th:text="${entry.itemId}"></span>
+    <strong th:text="${entry.itemName}">Item Name</strong>
+    (ID: <span th:text="${entry.itemId}"></span>)
+
     Note: <span th:text="${entry.note}"></span>
 
     <form action="/wishlist/remove" method="post">
