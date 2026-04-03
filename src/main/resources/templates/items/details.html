@@ -11,6 +11,12 @@
   <span th:text="${item.description}">Description here</span>
 </p>
 
+<form action="/wishlist/add" method="post">
+  <input type="hidden" name="itemId" th:value="${item.itemId}">
+  <input type="text" name="note" placeholder="Note">
+  <button type="submit">Add to wishlist</button>
+</form>
+
 <p><strong>Category ID:</strong>
   <span th:text="${item.categoryId}">1</span>
 </p>

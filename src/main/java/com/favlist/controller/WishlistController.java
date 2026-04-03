@@ -42,7 +42,7 @@ public class WishlistController {
         Wishlist wishlist = userService.getWishlistForUser(userId);
 
         wishlistService.addItem(wishlist.getWishlistId(), itemId, note);
-        return "redirect:/wihlist";
+        return "redirect:/wishlist";
     }
 
     @PostMapping("remove")
