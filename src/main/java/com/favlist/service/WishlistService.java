@@ -18,6 +18,11 @@ public class WishlistService {
     adding/updating a note
     uses:
     WishlistRepo, WishlistEntryRepo
+
+    Later validation:
+    check if item already exists
+    validate item exists
+    validate wishlist exists
      */
     private final WishlistRepository wishlistRepository;
     private final WishlistEntryRepository wishlistEntryRepository;
