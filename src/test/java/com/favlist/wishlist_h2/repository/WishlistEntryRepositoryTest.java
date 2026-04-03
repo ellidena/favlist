@@ -42,6 +42,7 @@ public class WishlistEntryRepositoryTest {
         assertThat(entry.getWishlistId()).isEqualTo(1);
         assertThat(entry.getItemId()).isEqualTo(1);
         assertThat(entry.getNote()).isEqualTo("Should read this decade");
+        assertThat(entry.getItemName()).isEqualTo("The Hobbit");
     }
 
     @Test
