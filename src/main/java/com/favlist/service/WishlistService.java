@@ -64,4 +64,14 @@ public class WishlistService {
 
         wishlistEntryRepository.updateNote(entry);
     }
+
+    // check if an item is already in the wishlist
+    public boolean containsItem(int wishlistId, int itemId) {
+        try {
+            wishlistEntryRepository.findOne(wishlistId, itemId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
