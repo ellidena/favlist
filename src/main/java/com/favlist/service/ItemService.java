@@ -1,8 +1,12 @@
 package com.favlist.service;
 
+import com.favlist.model.Category;
+import com.favlist.model.Item;
 import com.favlist.repository.CategoryRepository;
 import com.favlist.repository.ItemRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ItemService {
@@ -22,5 +26,21 @@ public class ItemService {
     ) {
         this.itemRepository = itemRepository;
         this.categoryRepository = categoryRepository;
+    }
+
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    public List<Item> getItemsByCategory(int categoryId) {
+        return itemRepository.findByCategory(categoryId);
+    }
+
+    public Item getItemDetails(int itemId) {
+        return itemRepository.findById(itemId);
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }
