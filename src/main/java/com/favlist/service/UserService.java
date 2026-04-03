@@ -43,4 +43,8 @@ public class UserService {
     public Wishlist getWishlistForUser(int userId) {
             return wishlistRepository.findByUserId(userId);
     }
+
+    public void delete(int userId){
+        userRepository.delete(userId);
+    }
 }
