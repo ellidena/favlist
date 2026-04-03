@@ -1,8 +1,9 @@
 package com.favlist.controller;
 
-import com.favlist.model.Category;
+
 import com.favlist.model.Item;
 import com.favlist.service.ItemService;
+import com.favlist.service.WishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,22 +11,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/items")
 public class ItemController {
 
     private final ItemService itemService;
+    private final WishlistService wishlistService;
 
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, WishlistService wishlistService) {
         this.itemService = itemService;
+        this.wishlistService = wishlistService;
     }
 
     @GetMapping
     public String listItems(Model model) {
         model.addAttribute("items", itemService.getAllItems());
         model.addAttribute("categories", itemService.getAllCategories());
+
+        // user 1 for now until login/registry exists
+        int userId = 1;
+        model.addAttribute("wishlistItemIds", wishlistService.getWishlistItemIds(userId));
+
         return "items/list";
     }
 

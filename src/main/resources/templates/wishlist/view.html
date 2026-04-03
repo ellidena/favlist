@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Your Wishlist</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -17,6 +18,7 @@
 
     <form action="/wishlist/remove" method="post">
       <input type="hidden" name="itemId" th:value="${entry.itemId}">
+      <input type="hidden" name="redirect" th:value="@{/wishlist}">
       <button type="submit">Remove</button>
     </form>
 

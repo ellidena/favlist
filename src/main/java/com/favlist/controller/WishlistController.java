@@ -45,12 +45,13 @@ public class WishlistController {
     }
 
     @PostMapping("remove")
-    public String removeItem(@RequestParam int itemId) {
+    public String removeItem(@RequestParam int itemId,
+                             @RequestParam(required = false) String redirect) {
         int userId = 1;
         Wishlist wishlist = userService.getWishlistForUser(userId);
 
         wishlistService.removeItem(wishlist.getWishlistId(), itemId);
-        return "redirect:/wishlist";
+        return "redirect:" + (redirect != null ? redirect : "/wishlist");
     }
 
     @PostMapping("/update-note")
