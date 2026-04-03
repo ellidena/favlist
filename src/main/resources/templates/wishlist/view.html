@@ -17,6 +17,7 @@
 
     <form action="/wishlist/remove" method="post">
       <input type="hidden" name="itemId" th:value="${entry.itemId}">
+      <input type="hidden" name="redirect" th:value="@{/wishlist}">
       <button type="submit">Remove</button>
     </form>
 
