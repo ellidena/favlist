@@ -61,6 +61,7 @@ public class WishlistEntryRepositoryTest {
         assertThat(fetched.getWishlistId()).isEqualTo(1);
         assertThat(fetched.getItemId()).isEqualTo(3);
         assertThat(fetched.getNote()).isEqualTo("Adding a new item to wishlist");
+        assertThat(fetched.getItemName()).isEqualTo("Kobo Clara");
     }
 
     @Test
