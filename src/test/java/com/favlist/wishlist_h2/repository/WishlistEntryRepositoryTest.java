@@ -28,6 +28,10 @@ public class WishlistEntryRepositoryTest {
         List<WishlistEntry> entries = wishlistEntryRepository.findByWishlistId(1);
 
         assertThat(entries).hasSize(2);
+
+        assertThat(entries)
+                .extracting(WishlistEntry::getItemName)
+                .containsExactlyInAnyOrder("The Hobbit", "Fancy Keyboard");
     }
 
     @Test
@@ -38,6 +42,7 @@ public class WishlistEntryRepositoryTest {
         assertThat(entry.getWishlistId()).isEqualTo(1);
         assertThat(entry.getItemId()).isEqualTo(1);
         assertThat(entry.getNote()).isEqualTo("Should read this decade");
+        assertThat(entry.getItemName()).isEqualTo("The Hobbit");
     }
 
     @Test
@@ -56,6 +61,7 @@ public class WishlistEntryRepositoryTest {
         assertThat(fetched.getWishlistId()).isEqualTo(1);
         assertThat(fetched.getItemId()).isEqualTo(3);
         assertThat(fetched.getNote()).isEqualTo("Adding a new item to wishlist");
+        assertThat(fetched.getItemName()).isEqualTo("Kobo Clara");
     }
 
     @Test
@@ -68,6 +74,7 @@ public class WishlistEntryRepositoryTest {
 
         WishlistEntry updated = wishlistEntryRepository.findOne(1, 1);
         assertThat(updated.getNote()).isEqualTo("Updated note");
+        assertThat(updated.getItemName()).isNotNull();
     }
 
     @Test
