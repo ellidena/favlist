@@ -45,6 +45,15 @@ public class WishlistController {
         return "redirect:/wihlist";
     }
 
+    @PostMapping("remove")
+    public String removeItem(@RequestParam int itemId) {
+        int userId = 1;
+        Wishlist wishlist = userService.getWishlistForUser(userId);
+
+        wishlistService.removeItem(wishlist.getWishlistId(), itemId);
+        return "redirect:/wishlist";
+    }
+
     @ResponseBody
     @GetMapping("/json")
     public List<WishlistEntry> showWishListJson(){
