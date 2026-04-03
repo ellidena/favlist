@@ -1,6 +1,7 @@
 package com.favlist.service;
 
 import com.favlist.model.User;
+import com.favlist.model.Wishlist;
 import com.favlist.repository.UserRepository;
 import com.favlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,9 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public Wishlist getWishlistForUser(int userId) {
+            return wishlistRepository.findByUserId(userId);
     }
 }
