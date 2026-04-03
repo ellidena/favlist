@@ -34,4 +34,8 @@ public class ItemService {
     public List<Item> getItemsByCategory(int categoryId) {
         return itemRepository.findByCategory(categoryId);
     }
+
+    public Item getItemDetails(int itemId) {
+        return itemRepository.findById(itemId);
+    }
 }
