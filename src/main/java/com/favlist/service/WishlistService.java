@@ -37,4 +37,13 @@ public class WishlistService {
     public List<WishlistEntry> getEntries(int wishlistId) {
         return wishlistEntryRepository.findByWishlistId(wishlistId);
     }
+
+    public void addItem(int wishlistId, int itemId, String note) {
+        WishlistEntry entry = new WishlistEntry();
+        entry.setWishlistId(wishlistId);
+        entry.setItemId(itemId);
+        entry.setNote(note);
+
+        wishlistEntryRepository.insert(entry);
+    }
 }
