@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Item Details</title>
+</head>
+<body>
+
+<h1 th:text="${item.name}">Item Name</h1>
+
+<p><strong>Description:</strong>
+  <span th:text="${item.description}">Description here</span>
+</p>
+
+<form action="/wishlist/add" method="post">
+  <input type="hidden" name="itemId" th:value="${item.itemId}">
+  <input type="text" name="note" placeholder="Note">
+  <button type="submit">Add to wishlist</button>
+</form>
+
+<p><strong>Category ID:</strong>
+  <span th:text="${item.categoryId}">1</span>
+</p>
+
+<a href="/items">Back to items</a>
+
+</body>
+</html>
