@@ -7,9 +7,7 @@ import com.favlist.service.UserService;
 import com.favlist.service.WishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +33,16 @@ public class WishlistController {
 
         model.addAttribute("entries", wishlistService.getEntries(wishlist.getWishlistId()));
         return "wishlist/view";
+    }
+
+    // Todo: Add form
+    @PostMapping("/add")
+    public String addItem(@RequestParam int itemId, @RequestParam String note) {
+        int userId = 1;
+        Wishlist wishlist = userService.getWishlistForUser(userId);
+
+        wishlistService.addItem(wishlist.getWishlistId(), itemId, note);
+        return "redirect:/wihlist";
     }
 
     @ResponseBody
