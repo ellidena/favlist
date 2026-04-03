@@ -1,8 +1,12 @@
 package com.favlist.service;
 
+import com.favlist.model.Wishlist;
+import com.favlist.model.WishlistEntry;
 import com.favlist.repository.WishlistEntryRepository;
 import com.favlist.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WishlistService {
@@ -14,6 +18,11 @@ public class WishlistService {
     adding/updating a note
     uses:
     WishlistRepo, WishlistEntryRepo
+
+    Later validation:
+    check if item already exists
+    validate item exists
+    validate wishlist exists
      */
     private final WishlistRepository wishlistRepository;
     private final WishlistEntryRepository wishlistEntryRepository;
@@ -24,5 +33,49 @@ public class WishlistService {
     ) {
         this.wishlistRepository = wishlistRepository;
         this.wishlistEntryRepository = wishlistEntryRepository;
+    }
+
+    public Wishlist getWishlistForUser(int userId) {
+        return wishlistRepository.findByUserId(userId);
+    }
+
+    public List<WishlistEntry> getEntries(int wishlistId) {
+        return wishlistEntryRepository.findByWishlistId(wishlistId);
+    }
+
+    public void addItem(int wishlistId, int itemId, String note) {
+        WishlistEntry entry = new WishlistEntry();
+        entry.setWishlistId(wishlistId);
+        entry.setItemId(itemId);
+        entry.setNote(note);
+
+        wishlistEntryRepository.insert(entry);
+    }
+
+    public void removeItem(int wishlistId, int itemId){
+        wishlistEntryRepository.delete(wishlistId, itemId);
+    }
+
+    public void updateNote(int wishlistId, int itemId, String newNote) {
+        WishlistEntry entry = new WishlistEntry();
+        entry.setWishlistId(wishlistId);
+        entry.setItemId(itemId);
+        entry.setNote(newNote);
+
+        wishlistEntryRepository.updateNote(entry);
+    }
+
+    // check if an item is already in the wishlist
+    public boolean containsItem(int wishlistId, int itemId) {
+        try {
+            wishlistEntryRepository.findOne(wishlistId, itemId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public int countItems(int wishlistId) {
+        return wishlistEntryRepository.findByWishlistId(wishlistId).size();
     }
 }
