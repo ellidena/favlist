@@ -50,7 +50,7 @@ public class WishlistController {
         Wishlist wishlist = userService.getWishlistForUser(userId);
 
         wishlistService.removeItem(wishlist.getWishlistId(), itemId);
-        return "redirect:" + (redirect != null ? redirect : "/wishlist");
+        return "redirect:" + (redirect != null ? redirect : "/wishlist/view");
     }
 
     @PostMapping("/update-note")
