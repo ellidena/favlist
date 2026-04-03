@@ -74,6 +74,7 @@ public class WishlistEntryRepositoryTest {
 
         WishlistEntry updated = wishlistEntryRepository.findOne(1, 1);
         assertThat(updated.getNote()).isEqualTo("Updated note");
+        assertThat(updated.getItemName()).isNotNull();
     }
 
     @Test
