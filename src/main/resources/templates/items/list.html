@@ -9,7 +9,10 @@
 <h1>All Items</h1>
 
 <ul>
-    <li th:each="item : ${items}">
+    <!-- each <li> item wrapped with a conditional css class -->
+    <li th:each="item : ${items}"
+        th:classappend="${wishlistItemIds.contains(item.itemId)} ? 'in-wishlist' : ''">
+
         <a th:href="@{'/items/' + ${item.itemId}}"
            th:text="${item.name}">Item name</a>
 
