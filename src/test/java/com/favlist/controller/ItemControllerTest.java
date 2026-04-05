@@ -2,10 +2,18 @@ package com.favlist.controller;
 
 import com.favlist.service.ItemService;
 import com.favlist.service.WishlistService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import static org.mockito.Mockito.*;
+
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.List;
+import java.util.Set;
 
 @WebMvcTest(ItemController.class)
 public class ItemControllerTest {
@@ -19,5 +27,20 @@ public class ItemControllerTest {
     @MockitoBean
     private WishlistService wishlistService;
 
+    @Test
+    void listItems_returnsOkAndView() throws Exception {
+        /*
+        The endpoint loads, the correct view is returns, the model contains the expected attributes
+         */
+        when(itemService.getAllItems()).thenReturn(List.of());
+        when(itemService.getAllCategories()).thenReturn(List.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
+        mockMvc.perform(get("/items"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/list"))
+                .andExpect(model().attributeExists("items"))
+                .andExpect(model().attributeExists("categories"))
+                .andExpect(model().attributeExists("wishlistItemIds"));
+    }
 }
