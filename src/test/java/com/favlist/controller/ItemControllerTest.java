@@ -103,4 +103,41 @@ public class ItemControllerTest {
                 .andExpect(content().string(not(containsString("action=\"/wishlist/add\""))));
     }
 
+    @Test
+    void itemDetails_showsRemoveButtonWhenInWishlist() throws Exception {
+        // Arrange
+        Item item = new Item();
+        item.setItemId(5);
+        item.setName("Lamp");
+        item.setDescription("Bright");
+
+        WishlistEntry entry = new WishlistEntry();
+        entry.setItemId(5);
+        entry.setNote("Old note");
+
+        when(itemService.getItemDetails(5)).thenReturn(item);
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of(5));
+        when(wishlistService.getEntryForUser(1, 5)).thenReturn(entry);
+
+        // Act + Assert
+        mockMvc.perform(get("/items/5"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/details"))
+
+                // Remove form is present
+                .andExpect(content().string(containsString("action=\"/wishlist/remove\"")))
+
+                // Correct redirect hidden field
+                .andExpect(content().string(containsString("name=\"redirect\"")))
+                .andExpect(content().string(containsString("value=\"/items\"")))
+
+                // Correct itemId hidden field
+                .andExpect(content().string(containsString("name=\"itemId\"")))
+                .andExpect(content().string(containsString("value=\"5\"")))
+
+                // Add form should NOT appear
+                .andExpect(content().string(not(containsString("action=\"/wishlist/add\""))));
+    }
+
+
 }
