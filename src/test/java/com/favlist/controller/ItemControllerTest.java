@@ -232,7 +232,7 @@ public class ItemControllerTest {
 
     @Test
     void listItems_showsEmptyStateWhenNoItems() throws Exception {
-        when(itemService.getItems(null)).thenReturn(List.of(item));
+        when(itemService.getItems(null)).thenReturn(List.of());
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
