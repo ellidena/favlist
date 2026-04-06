@@ -2,5 +2,21 @@
   <nav class="navbar">
     <a href="/items">Items</a> |
     <a href="/wishlist">Wishlist</a>
+
+    <!-- Username -->
+    <span th:if="${session.userId != null}">
+      Logged in as <strong th:text="${session.username}"></strong>
+    </span>
+
+    <!-- Login / Logout -->
+    <span th:if="${session.userId == null}">
+      <a href="/login">Login</a>
+    </span>
+
+    <span th:if="${session.userId != null}">
+      <a href="/logout">Logout</a>
+    </span>
+
+
   </nav>
 </div>
