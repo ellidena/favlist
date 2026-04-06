@@ -71,6 +71,24 @@ public class ItemControllerTest {
     }
 
     @Test
+    void listItems_filtersByCategory() throws Exception {
+        Item lamp = new Item();
+        lamp.setItemId(1);
+        lamp.setName("Lamp");
+
+        when(itemService.getItems(3)).thenReturn(List.of(lamp));
+        when(itemService.getAllCategories()).thenReturn(List.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
+
+        mockMvc.perform(get("/items").param("category", "3"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/list"))
+                .andExpect(model().attribute("selectedCategory", 3))
+                .andExpect(content().string(containsString("Lamp")));
+
+    }
+
+    @Test
     void listItems_showsQuickAddWhenNotInWishlist() throws Exception {
         Item item = new Item();
         item.setItemId(5);
