@@ -88,6 +88,23 @@ public class ItemControllerTest {
     }
 
     @Test
+    void listItems_showsRemoveButtonWhenInWishlist() throws Exception {
+        Item item = new Item();
+        item.setItemId(5);
+        item.setName("Lamp");
+
+        when(itemService.getAllItems()).thenReturn(List.of(item));
+        when(itemService.getAllCategories()).thenReturn(List.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of(5));
+
+        mockMvc.perform(get("/items"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("action=\"/wishlist/remove\"")))
+                .andExpect(content().string(containsString("name=\"itemId\" value=\"5\"")))
+                .andExpect(content().string(not(containsString("action=\"/wishlist/add\""))));
+    }
+
+    @Test
     void itemDetails_showsAddFormWhenNotInWishlist() throws Exception {
         Item item = new Item();
         item.setItemId(5);
