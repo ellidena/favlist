@@ -97,4 +97,14 @@ public class WishlistService {
         }
         return ids;
     }
+
+    public WishlistEntry getEntryForUser(int userId, int itemId) {
+        Wishlist wishlist = wishlistRepository.findByUserId(userId);
+
+        try {
+            return wishlistEntryRepository.findOne(wishlist.getWishlistId(), itemId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
