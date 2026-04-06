@@ -13,7 +13,9 @@
   <li th:each="entry : ${entries}"
       th:classappend="${param.edit != null and param.edit[0] == entry.itemId.toString()} ? 'editing' : ''">
 
-    <strong th:text="${entry.itemName}">Item Name</strong>
+    <a th:href="@{'/items/' + ${entry.itemId}}">
+      <strong th:text="${entry.itemName}">Item Name</strong>
+    </a>
 
     <!-- EDIT MODE -->
     <div th:if="${param.edit != null and param.edit[0] == entry.itemId.toString()}">
