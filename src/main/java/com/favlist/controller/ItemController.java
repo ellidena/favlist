@@ -27,10 +27,10 @@ public class ItemController {
             Model model,
             HttpSession session
     ) {
+        String redirect = SessionUtils.redirectIfNotLoggedIn(session);
+        if (redirect != null) return redirect;
+
         Integer userId = SessionUtils.getUserId(session);
-        if (userId == null) {
-            return "redirect:/login";
-        }
 
         model.addAttribute("items", itemService.getItems(category));
         model.addAttribute("categories", itemService.getAllCategories());
@@ -47,10 +47,10 @@ public class ItemController {
             Model model,
             HttpSession session
     ) {
+        String redirect = SessionUtils.redirectIfNotLoggedIn(session);
+        if (redirect != null) return redirect;
+
         Integer userId = SessionUtils.getUserId(session);
-        if (userId == null) {
-            return "redirect:/login";
-        }
 
         model.addAttribute("item", itemService.getItemDetails(id));
         // Now the details pge will know whether the item is already in the wishlist:
