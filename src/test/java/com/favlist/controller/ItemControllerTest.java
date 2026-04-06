@@ -135,12 +135,12 @@ public class ItemControllerTest {
         entry.setNote("Old note");
 
         when(itemService.getItemDetails(5)).thenReturn(item);
-        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of(5));
         when(wishlistService.getEntryForUser(1, 5)).thenReturn(entry);
 
-        mockMvc.perform(get("/items/details"))
+        mockMvc.perform(get("/items/5"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("itemss/details"))
+                .andExpect(view().name("items/details"))
                 .andExpect(model().attribute("entryNote", "Old note"))
 
                 // Edit form is present
