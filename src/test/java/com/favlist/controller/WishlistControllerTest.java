@@ -97,6 +97,22 @@ public class WishlistControllerTest {
     }
 
     @Test
+    void updateNote_callsServiceWithCorrectArguments() throws Exception {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setWishlistId(10);
+
+        when(userService.getWishlistForUser(1)).thenReturn(wishlist);
+
+        mockMvc.perform(post("/wishlist/update-note")
+                        .param("itemId", "7")
+                        .param("note", "Updated note"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/wishlist"));
+
+        verify(wishlistService).updateNote(10, 7, "Updated note");
+    }
+
+    @Test
     void updateNote_withoutRedirect_redirectsToWishlist() throws Exception {
         Wishlist wishlist = new Wishlist();
         wishlist.setWishlistId(10);
