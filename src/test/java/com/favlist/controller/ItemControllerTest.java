@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,7 +36,7 @@ public class ItemControllerTest {
         /*
         The endpoint loads, the correct view is returns, the model contains the expected attributes
          */
-        when(itemService.getAllItems()).thenReturn(List.of());
+        when(itemService.getItems(null)).thenReturn(List.of());
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
@@ -46,7 +45,8 @@ public class ItemControllerTest {
                 .andExpect(view().name("items/list"))
                 .andExpect(model().attributeExists("items"))
                 .andExpect(model().attributeExists("categories"))
-                .andExpect(model().attributeExists("wishlistItemIds"));
+                .andExpect(model().attributeExists("wishlistItemIds"))
+                .andExpect(model().attribute("selectedCategory", nullValue()));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ItemControllerTest {
         i2.setItemId(2);
         i2.setName("Keyboard");
 
-        when(itemService.getAllItems()).thenReturn(List.of(i1, i2));
+        when(itemService.getItems(null)).thenReturn(List.of(i1, i2));
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
