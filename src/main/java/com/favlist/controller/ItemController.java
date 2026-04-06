@@ -1,7 +1,5 @@
 package com.favlist.controller;
 
-
-import com.favlist.model.Item;
 import com.favlist.model.WishlistEntry;
 import com.favlist.service.ItemService;
 import com.favlist.service.WishlistService;
