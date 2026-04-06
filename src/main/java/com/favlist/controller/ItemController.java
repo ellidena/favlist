@@ -39,6 +39,10 @@ public class ItemController {
     @GetMapping("/{id}")
     public String itemDetails(@PathVariable int id, Model model) {
         model.addAttribute("item", itemService.getItemDetails(id));
+
+        int userId = 1;
+        model.addAttribute("wishlistItemIds", wishlistService.getWishlistItemIds(userId));
+
         return "items/details";
     }
 
