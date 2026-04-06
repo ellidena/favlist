@@ -77,7 +77,7 @@ public class WishlistControllerTest {
         mockMvc.perform(post("/wishlist/remove")
                         .param("itemId", "5"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/wishlist/view"));
+                .andExpect(redirectedUrl("/wishlist"));
 
         verify(wishlistService).removeItem(10, 5);
     }
