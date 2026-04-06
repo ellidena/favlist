@@ -13,10 +13,12 @@ public class SessionUtils {
         return getUserId(session) != null;
     }
 
+    // redirect login check
     public static String redirectIfNotLoggedIn(HttpSession session) {
         return (getUserId(session) == null) ? "redirect:/login" : null;
     }
 
+    //exception login check
     public static Integer requireLogin(HttpSession session) {
         Integer userId = getUserId(session);
         if (userId == null) {
