@@ -2,5 +2,15 @@
   <nav class="navbar">
     <a href="/items">Items</a> |
     <a href="/wishlist">Wishlist</a>
+    <!-- Show when NOT logged in -->
+    <div th:if="${session.userId == null}">
+      <a href="/login">Login</a>
+    </div>
+
+    <!-- Show when logged in -->
+    <div th:if="${session.userId != null}">
+      <a href="/logout">Logout</a>
+    </div>
+
   </nav>
 </div>
