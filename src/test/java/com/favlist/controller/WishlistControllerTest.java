@@ -1,6 +1,7 @@
 package com.favlist.controller;
 
 import com.favlist.model.Wishlist;
+import com.favlist.model.WishlistEntry;
 import com.favlist.service.UserService;
 import com.favlist.service.WishlistService;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -29,17 +31,22 @@ public class WishlistControllerTest {
     private UserService userService;
 
     @Test
-    void viewWishlist_ReturnsOkAndView() throws Exception {
+    void viewWishlist_loadsEntriesIntoModel() throws Exception {
         Wishlist wishlist = new Wishlist();
         wishlist.setWishlistId(1);
 
+        WishlistEntry entry = new WishlistEntry();
+        entry.setItemId(5);
+        entry.setItemName("Lamp");
+
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
-        when(wishlistService.getEntries(1)).thenReturn(List.of());
+        when(wishlistService.getEntries(1)).thenReturn(List.of(entry));
 
         mockMvc.perform(get("/wishlist"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishlist/view"))
-                .andExpect(model().attributeExists("entries"));
+                .andExpect(model().attributeExists("entries"))
+                .andExpect(content().string(containsString("Lamp")));
     }
 
     @Test
