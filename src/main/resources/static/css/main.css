@@ -1,11 +1,101 @@
+/* --- Layout --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background: #333;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navbar span {
+    margin-left: auto;
+    color: #ddd;
+}
+
+/* --- Headings --- */
+h1 {
+    margin-top: 20px;
+    font-size: 26px;
+}
+
+/* --- Buttons --- */
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+/* --- Forms --- */
+input[type="text"],
+input[type="password"],
+select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* --- Lists --- */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: white;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* --- Wishlist states --- */
 .in-wishlist {
     background-color: #e6ffe6;
     border-left: 4px solid #4CAF50;
-    padding-left: 8px;
 }
 
 .editing {
     background-color: #fff7e6;
     border-left: 4px solid #ff9800;
-    padding-left: 8px;
+}
+
+/* --- Links --- */
+a {
+    color: #0066cc;
+}
+
+a:hover {
+    text-decoration: underline;
 }
