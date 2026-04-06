@@ -74,6 +74,22 @@ public class WishlistControllerTest {
     }
 
     @Test
+    void removeItem_withRedirect_redirectsToProvidedUrl() throws Exception {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setWishlistId(10);
+
+        when(userService.getWishlistForUser(1)).thenReturn(wishlist);
+
+        mockMvc.perform(post("/wishlist/remove")
+                        .param("itemId", "5")
+                        .param("redirect", "/items"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/items"));
+
+        verify(wishlistService).removeItem(10, 5);
+    }
+
+    @Test
     void updateNote_withoutRedirect_redirectsToWishlist() throws Exception {
         Wishlist wishlist = new Wishlist();
         wishlist.setWishlistId(10);
