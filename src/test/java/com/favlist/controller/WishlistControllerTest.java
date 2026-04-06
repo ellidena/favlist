@@ -256,5 +256,32 @@ public class WishlistControllerTest {
         assertThat(item5Block, not(containsString("Remove</button>")));
     }
 
+    @Test
+    void wishlist_showsEmptyStateWhenNoEntries() throws Exception {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setWishlistId(1);
+
+        when(userService.getWishlistForUser(1)).thenReturn(wishlist);
+        when(wishlistService.getEntries(1)).thenReturn(List.of());
+
+        mockMvc.perform(get("/wishlist"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("wishlist/view"))
+
+                // No item links
+                .andExpect(content().string(not(containsString("/items/"))))
+
+                // No notes
+                .andExpect(content().string(not(containsString("Note:"))))
+
+                // No edit links
+                .andExpect(content().string(not(containsString("?edit="))))
+
+                // No remove buttons
+                .andExpect(content().string(not(containsString("Remove</button>"))))
+
+                // No cancel links
+                .andExpect(content().string(not(containsString("Cancel</a>"))));
+    }
 
 }
