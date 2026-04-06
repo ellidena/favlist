@@ -220,4 +220,41 @@ public class WishlistControllerTest {
         assertThat(item7Block, not(containsString("Cancel</a>")));
     }
 
+    @Test
+    void wishlist_viewMode_showsRemoveButtonForNonEditingItems() throws Exception {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setWishlistId(1);
+
+        WishlistEntry e1 = new WishlistEntry();
+        e1.setItemId(5);
+        e1.setItemName("Lamp");
+        e1.setNote("Old note");
+
+        WishlistEntry e2 = new WishlistEntry();
+        e2.setItemId(7);
+        e2.setItemName("Keyboard");
+        e2.setNote("Clicky");
+
+        when(userService.getWishlistForUser(1)).thenReturn(wishlist);
+        when(wishlistService.getEntries(1)).thenReturn(List.of(e1, e2));
+
+        String html = mockMvc.perform(get("/wishlist").param("edit", "5"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("wishlist/view"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        // Remove button appears for item 7 (view mode)
+        assertThat(html, containsString("action=\"/wishlist/remove\""));
+        assertThat(html, containsString("itemId\" value=\"7\""));
+        assertThat(html, containsString("Remove</button>"));
+
+        // Remove button does NOT appear for item 5 (edit mode)
+        // We check the block for item 5 specifically
+        String item5Block = html.substring(html.indexOf("Lamp"), html.indexOf("Keyboard"));
+        assertThat(item5Block, not(containsString("Remove</button>")));
+    }
+
+
 }
