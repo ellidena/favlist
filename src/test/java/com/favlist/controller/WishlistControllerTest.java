@@ -11,6 +11,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -144,4 +145,41 @@ public class WishlistControllerTest {
 
         verify(wishlistService).updateNote(10, 5, "hello");
     }
+
+    @Test
+    void wishlist_editMode_showsEditFormForCorrectItem() throws Exception {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setWishlistId(1);
+
+        WishlistEntry e1 = new WishlistEntry();
+        e1.setItemId(5);
+        e1.setItemName("Lamp");
+        e1.setNote("Old note");
+
+        WishlistEntry e2 = new WishlistEntry();
+        e2.setItemId(7);
+        e2.setItemName("Keyboard");
+        e2.setNote("Clicky");
+
+        when(userService.getWishlistForUser(1)).thenReturn(wishlist);
+        when(wishlistService.getEntries(1)).thenReturn(List.of(e1, e2));
+
+        mockMvc.perform(get("/wishlist").param("edit", "5"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("wishlist/view"))
+
+                // Edit form appears for item 5
+                .andExpect(content().string(containsString("action=\"/wishlist/update-note\"")))
+                .andExpect(content().string(containsString("value=\"5\"")))
+                .andExpect(content().string(containsString("Old note")))
+
+                // Edit link for item 5 is hidden
+                .andExpect(content().string(not(containsString("/wishlist?edit=5"))))
+
+                // Item 7 remains in view mode
+                .andExpect(content().string(containsString("Keyboard")))
+                .andExpect(content().string(containsString("Clicky")))
+                .andExpect(content().string(containsString("/wishlist?edit=7")));
+    }
+
 }
