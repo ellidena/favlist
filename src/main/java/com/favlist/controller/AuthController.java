@@ -34,6 +34,7 @@ public class AuthController {
 
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("userId", user.getUserId());
+            session.setAttribute("username", user.getUsername());
             return "redirect:/items";
         }
 
