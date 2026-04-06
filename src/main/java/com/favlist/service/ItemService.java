@@ -43,4 +43,11 @@ public class ItemService {
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
+
+    public List<Item> getItems(Integer categoryId) {
+        if (categoryId == null) {
+            return getAllItems();
+        }
+        return getItemsByCategory(categoryId);
+    }
 }

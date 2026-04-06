@@ -7,10 +7,7 @@ import com.favlist.service.ItemService;
 import com.favlist.service.WishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -26,9 +23,13 @@ public class ItemController {
     }
 
     @GetMapping
-    public String listItems(Model model) {
-        model.addAttribute("items", itemService.getAllItems());
+    public String listItems(
+            @RequestParam(required = false) Integer category,
+            Model model
+    ) {
+        model.addAttribute("items", itemService.getItems(category));
         model.addAttribute("categories", itemService.getAllCategories());
+        model.addAttribute("selectedCategory", category);
 
         // user 1 for now until login/registry exists
         int userId = 1;

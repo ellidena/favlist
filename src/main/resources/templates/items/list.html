@@ -7,6 +7,27 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
+<form method="get" action="/items" class="category-filter">
+    <label for="category">Filter by category:</label>
+    <select name="category" id="category" onchange="this.form.submit()">
+
+        <!-- Option: All categories -->
+        <option value=""
+                th:selected="${selectedCategory == null}">
+            All categories
+        </option>
+
+        <!-- Options: Each category -->
+        <option th:each="cat : ${categories}"
+                th:value="${cat.categoryId}"
+                th:text="${cat.name}"
+                th:selected="${selectedCategory == cat.categoryId}">
+        </option>
+
+    </select>
+</form>
+
+
 <h1>All Items</h1>
 
 <ul>
@@ -22,6 +43,8 @@
               action="/wishlist/add" method="post" style="display:inline;">
             <input type="hidden" name="itemId" th:value="${item.itemId}">
             <input type="hidden" name="note" value="">
+            <input type="hidden" name="redirect"
+                   th:value="'/items' + (${selectedCategory} != null ? ('?category=' + ${selectedCategory}) : '')">
             <button type="submit">Quick Add</button>
         </form>
 
@@ -29,7 +52,8 @@
         <form th:if="${wishlistItemIds.contains(item.itemId)}"
               action="/wishlist/remove" method="post" style="display:inline;">
             <input type="hidden" name="itemId" th:value="${item.itemId}">
-            <input type="hidden" name="redirect" th:value="@{/items}">
+            <input type="hidden" name="redirect"
+                   th:value="'/items' + (${selectedCategory} != null ? ('?category=' + ${selectedCategory}) : '')">
             <button type="submit">Remove</button>
         </form>
 
@@ -37,12 +61,5 @@
 
     </li>
 </ul>
-
-<h2>Categories</h2>
-<ul>
-    <li th:each="category : ${categories}"
-        th:text="${category.name}">Category</li>
-</ul>
-
 </body>
 </html>
