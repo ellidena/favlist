@@ -194,5 +194,24 @@ public class ItemControllerTest {
                 .andExpect(content().string(not(containsString("action=\"/wishlist/add\""))));
     }
 
+    @Test
+    void listItems_showsCorrectItemLink() throws Exception {
+        Item item = new Item();
+        item.setItemId(5);
+        item.setName("Lamp");
+
+        when(itemService.getAllItems()).thenReturn(List.of(item));
+        when(itemService.getAllCategories()).thenReturn(List.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
+
+        mockMvc.perform(get("/items"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/list"))
+
+                // The link to the item details page should be correct
+                .andExpect(content().string(containsString("<a href=\"/items/5\">Lamp</a>")));
+    }
+
+
 
 }
