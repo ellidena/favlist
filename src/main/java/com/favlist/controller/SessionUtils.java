@@ -10,4 +10,8 @@ public class SessionUtils {
     public static boolean isLoggedIn(HttpSession session) {
         return getUserId(session) != null;
     }
+
+    public static String redirectIfNotLoggedIn(HttpSession session) {
+        return (getUserId(session) == null) ? "redirect:/login" : null;
+    }
 }
