@@ -94,7 +94,7 @@ public class ItemControllerTest {
         item.setItemId(5);
         item.setName("Lamp");
 
-        when(itemService.getAllItems()).thenReturn(List.of(item));
+        when(itemService.getItems(null)).thenReturn(List.of(item));
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of()); // empty wishlist
 
@@ -111,7 +111,7 @@ public class ItemControllerTest {
         item.setItemId(5);
         item.setName("Lamp");
 
-        when(itemService.getAllItems()).thenReturn(List.of(item));
+        when(itemService.getItems(null)).thenReturn(List.of(item));
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of(5));
 
@@ -218,7 +218,7 @@ public class ItemControllerTest {
         item.setItemId(5);
         item.setName("Lamp");
 
-        when(itemService.getAllItems()).thenReturn(List.of(item));
+        when(itemService.getItems(null)).thenReturn(List.of(item));
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
@@ -232,7 +232,7 @@ public class ItemControllerTest {
 
     @Test
     void listItems_showsEmptyStateWhenNoItems() throws Exception {
-        when(itemService.getAllItems()).thenReturn(List.of());
+        when(itemService.getItems(null)).thenReturn(List.of(item));
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
