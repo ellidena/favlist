@@ -5,6 +5,7 @@ import com.favlist.model.Item;
 import com.favlist.model.WishlistEntry;
 import com.favlist.service.ItemService;
 import com.favlist.service.WishlistService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,24 +26,35 @@ public class ItemController {
     @GetMapping
     public String listItems(
             @RequestParam(required = false) Integer category,
-            Model model
+            Model model,
+            HttpSession session
     ) {
+        Integer userId = SessionUtils.getUserId(session);
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("items", itemService.getItems(category));
         model.addAttribute("categories", itemService.getAllCategories());
         model.addAttribute("selectedCategory", category);
 
-        // user 1 for now until login/registry exists
-        int userId = 1;
         model.addAttribute("wishlistItemIds", wishlistService.getWishlistItemIds(userId));
 
         return "items/list";
     }
 
     @GetMapping("/{id}")
-    public String itemDetails(@PathVariable int id, Model model) {
-        model.addAttribute("item", itemService.getItemDetails(id));
+    public String itemDetails(
+            @PathVariable int id,
+            Model model,
+            HttpSession session
+    ) {
+        Integer userId = SessionUtils.getUserId(session);
+        if (userId == null) {
+            return "redirect:/login";
+        }
 
-        int userId = 1;
+        model.addAttribute("item", itemService.getItemDetails(id));
         // Now the details pge will know whether the item is already in the wishlist:
         model.addAttribute("wishlistItemIds", wishlistService.getWishlistItemIds(userId));
 
@@ -50,12 +62,5 @@ public class ItemController {
         model.addAttribute("entryNote", entry != null ? entry.getNote() : "");
 
         return "items/details";
-    }
-
-    // TEMP sanity-check
-    @GetMapping("/json")
-    @ResponseBody
-    public Item itemDetailsJson() {
-        return itemService.getItemDetails(1);
     }
 }
