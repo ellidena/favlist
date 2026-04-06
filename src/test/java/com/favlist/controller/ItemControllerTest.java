@@ -50,6 +50,27 @@ public class ItemControllerTest {
     }
 
     @Test
+    void listItems_showsItemNames() throws Exception {
+        Item i1 = new Item();
+        i1.setItemId(1);
+        i1.setName("Lamp");
+
+        Item i2 = new Item();
+        i2.setItemId(2);
+        i2.setName("Keyboard");
+
+        when(itemService.getAllItems()).thenReturn(List.of(i1, i2));
+        when(itemService.getAllCategories()).thenReturn(List.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
+
+        mockMvc.perform(get("/items"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/list"))
+                .andExpect(content().string(containsString("Lamp")))
+                .andExpect(content().string(containsString("Keyboard")));
+    }
+
+    @Test
     void itemDetails_showsAddFormWhenNotInWishlist() throws Exception {
         Item item = new Item();
         item.setItemId(5);
