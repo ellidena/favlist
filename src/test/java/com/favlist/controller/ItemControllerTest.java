@@ -1,11 +1,14 @@
 package com.favlist.controller;
 
+import com.favlist.model.Item;
 import com.favlist.service.ItemService;
 import com.favlist.service.WishlistService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.*;
 
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,4 +46,24 @@ public class ItemControllerTest {
                 .andExpect(model().attributeExists("categories"))
                 .andExpect(model().attributeExists("wishlistItemIds"));
     }
+
+    @Test
+    void itemDetails_showsAddFormWhenNotInWishlist() throws Exception {
+        Item item = new Item();
+        item.setItemId(5);
+        item.setName("Lamp");
+        item.setDescription("Bright");
+
+        when(itemService.getItemDetails(5)).thenReturn(item);
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
+        when(wishlistService.getEntryForUser(1, 5)).thenReturn(null);
+
+        mockMvc.perform(get("/items/5"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/details"))
+                .andExpect(model().attribute("entryNote", ""))
+                .andExpect(content().string(containsString("action=\"/wishlist/add\"")));
+
+    }
+
 }
