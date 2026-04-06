@@ -25,10 +25,10 @@ public class WishlistController {
 
     @GetMapping
     public String viewWishlist(Model model, HttpSession session) {
+        String redirect = SessionUtils.redirectIfNotLoggedIn(session);
+        if (redirect != null) return redirect;
+
         Integer userId = SessionUtils.getUserId(session);
-        if (userId == null) {
-            return "redirect:/login";
-        }
 
         Wishlist wishlist = userService.getWishlistForUser(userId);
         model.addAttribute("entries", wishlistService.getEntries(wishlist.getWishlistId()));
@@ -43,10 +43,10 @@ public class WishlistController {
             @RequestParam(required = false) String redirect,
             HttpSession session
     ) {
+        String loginRedirect = SessionUtils.redirectIfNotLoggedIn(session);
+        if (loginRedirect != null) return loginRedirect;
+
         Integer userId = SessionUtils.getUserId(session);
-        if (userId == null) {
-            return "redirect:/login";
-        }
 
         Wishlist wishlist = userService.getWishlistForUser(userId);
         wishlistService.addItem(wishlist.getWishlistId(), itemId, note);
@@ -59,10 +59,10 @@ public class WishlistController {
                              @RequestParam(required = false) String redirect,
                              HttpSession session
     ) {
+        String loginRedirect = SessionUtils.redirectIfNotLoggedIn(session);
+        if (loginRedirect != null) return loginRedirect;
+
         Integer userId = SessionUtils.getUserId(session);
-        if (userId == null) {
-            return "redirect:/login";
-        }
 
         Wishlist wishlist = userService.getWishlistForUser(userId);
         wishlistService.removeItem(wishlist.getWishlistId(), itemId);
@@ -77,10 +77,10 @@ public class WishlistController {
             @RequestParam(required = false) String redirect,
             HttpSession session
     ) {
+        String loginRedirect = SessionUtils.redirectIfNotLoggedIn(session);
+        if (loginRedirect != null) return loginRedirect;
+
         Integer userId = SessionUtils.getUserId(session);
-        if (userId == null) {
-            return "redirect:/login";
-        }
 
         Wishlist wishlist = userService.getWishlistForUser(userId);
         wishlistService.updateNote(wishlist.getWishlistId(), itemId, note);

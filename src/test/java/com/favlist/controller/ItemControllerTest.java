@@ -40,7 +40,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(get("/items").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/list"))
                 .andExpect(model().attributeExists("items"))
@@ -63,7 +63,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(get("/items").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/list"))
                 .andExpect(content().string(containsString("Lamp")))
@@ -80,7 +80,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
-        mockMvc.perform(get("/items").param("category", "3"))
+        mockMvc.perform(get("/items").param("category", "3").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/list"))
                 .andExpect(model().attribute("selectedCategory", 3))
@@ -98,7 +98,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of()); // empty wishlist
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(get("/items").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("action=\"/wishlist/add\"")))
                 .andExpect(content().string(containsString("name=\"itemId\" value=\"5\"")))
@@ -115,7 +115,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of(5));
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(get("/items").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("action=\"/wishlist/remove\"")))
                 .andExpect(content().string(containsString("name=\"itemId\" value=\"5\"")))
@@ -133,7 +133,7 @@ public class ItemControllerTest {
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
         when(wishlistService.getEntryForUser(1, 5)).thenReturn(null);
 
-        mockMvc.perform(get("/items/5"))
+        mockMvc.perform(get("/items/5").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/details"))
                 .andExpect(model().attribute("entryNote", ""))
@@ -156,7 +156,7 @@ public class ItemControllerTest {
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of(5));
         when(wishlistService.getEntryForUser(1, 5)).thenReturn(entry);
 
-        mockMvc.perform(get("/items/5"))
+        mockMvc.perform(get("/items/5").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/details"))
                 .andExpect(model().attribute("entryNote", "Old note"))
@@ -193,7 +193,7 @@ public class ItemControllerTest {
         when(wishlistService.getEntryForUser(1, 5)).thenReturn(entry);
 
         // Act + Assert
-        mockMvc.perform(get("/items/5"))
+        mockMvc.perform(get("/items/5").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/details"))
 
@@ -222,7 +222,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(get("/items").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/list"))
 
@@ -236,7 +236,7 @@ public class ItemControllerTest {
         when(itemService.getAllCategories()).thenReturn(List.of());
         when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
-        mockMvc.perform(get("/items"))
+        mockMvc.perform(get("/items").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("items/list"))
 

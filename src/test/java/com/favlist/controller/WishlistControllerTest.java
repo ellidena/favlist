@@ -44,7 +44,7 @@ public class WishlistControllerTest {
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
         when(wishlistService.getEntries(1)).thenReturn(List.of(entry));
 
-        mockMvc.perform(get("/wishlist"))
+        mockMvc.perform(get("/wishlist").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishlist/view"))
                 .andExpect(model().attributeExists("entries"))
@@ -58,7 +58,7 @@ public class WishlistControllerTest {
 
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
 
-        mockMvc.perform(post("/wishlist/add")
+        mockMvc.perform(post("/wishlist/add").sessionAttr("userId", 1)
                         .param("itemId", "5")
                         .param("note", "hello"))
                 .andExpect(status().is3xxRedirection())
@@ -74,7 +74,7 @@ public class WishlistControllerTest {
 
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
 
-        mockMvc.perform(post("/wishlist/remove")
+        mockMvc.perform(post("/wishlist/remove").sessionAttr("userId", 1)
                         .param("itemId", "5"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/wishlist"));
@@ -89,7 +89,7 @@ public class WishlistControllerTest {
 
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
 
-        mockMvc.perform(post("/wishlist/remove")
+        mockMvc.perform(post("/wishlist/remove").sessionAttr("userId", 1)
                         .param("itemId", "5")
                         .param("redirect", "/items"))
                 .andExpect(status().is3xxRedirection())
@@ -105,7 +105,7 @@ public class WishlistControllerTest {
 
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
 
-        mockMvc.perform(post("/wishlist/update-note")
+        mockMvc.perform(post("/wishlist/update-note").sessionAttr("userId", 1)
                         .param("itemId", "7")
                         .param("note", "Updated note"))
                 .andExpect(status().is3xxRedirection())
@@ -121,7 +121,7 @@ public class WishlistControllerTest {
 
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
 
-        mockMvc.perform(post("/wishlist/update-note")
+        mockMvc.perform(post("/wishlist/update-note").sessionAttr("userId", 1)
                         .param("itemId", "5")
                         .param("note", "hello"))
                 .andExpect(status().is3xxRedirection())
@@ -137,7 +137,7 @@ public class WishlistControllerTest {
 
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
 
-        mockMvc.perform(post("/wishlist/update-note")
+        mockMvc.perform(post("/wishlist/update-note").sessionAttr("userId", 1)
                         .param("itemId", "5")
                         .param("note", "hello")
                         .param("redirect", "/items/5"))
@@ -165,7 +165,7 @@ public class WishlistControllerTest {
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
         when(wishlistService.getEntries(1)).thenReturn(List.of(e1, e2));
 
-        mockMvc.perform(get("/wishlist").param("edit", "5"))
+        mockMvc.perform(get("/wishlist").param("edit", "5").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishlist/view"))
 
@@ -201,7 +201,7 @@ public class WishlistControllerTest {
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
         when(wishlistService.getEntries(1)).thenReturn(List.of(e1, e2));
 
-        String html = mockMvc.perform(get("/wishlist").param("edit", "5"))
+        String html = mockMvc.perform(get("/wishlist").param("edit", "5").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishlist/view"))
                 .andReturn()
@@ -238,7 +238,7 @@ public class WishlistControllerTest {
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
         when(wishlistService.getEntries(1)).thenReturn(List.of(e1, e2));
 
-        String html = mockMvc.perform(get("/wishlist").param("edit", "5"))
+        String html = mockMvc.perform(get("/wishlist").param("edit", "5").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishlist/view"))
                 .andReturn()
@@ -264,7 +264,7 @@ public class WishlistControllerTest {
         when(userService.getWishlistForUser(1)).thenReturn(wishlist);
         when(wishlistService.getEntries(1)).thenReturn(List.of());
 
-        mockMvc.perform(get("/wishlist"))
+        mockMvc.perform(get("/wishlist").sessionAttr("userId", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishlist/view"))
 
