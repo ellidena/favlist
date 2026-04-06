@@ -10,6 +10,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -180,6 +181,43 @@ public class WishlistControllerTest {
                 .andExpect(content().string(containsString("Keyboard")))
                 .andExpect(content().string(containsString("Clicky")))
                 .andExpect(content().string(containsString("/wishlist?edit=7")));
+    }
+
+    @Test
+    void wishlist_editMode_showsCancelLinkForCorrectItem() throws Exception {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setWishlistId(1);
+
+        WishlistEntry e1 = new WishlistEntry();
+        e1.setItemId(5);
+        e1.setItemName("Lamp");
+        e1.setNote("Old note");
+
+        WishlistEntry e2 = new WishlistEntry();
+        e2.setItemId(7);
+        e2.setItemName("Keyboard");
+        e2.setNote("Clicky");
+
+        when(userService.getWishlistForUser(1)).thenReturn(wishlist);
+        when(wishlistService.getEntries(1)).thenReturn(List.of(e1, e2));
+
+        String html = mockMvc.perform(get("/wishlist").param("edit", "5"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("wishlist/view"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        // Cancel link appears
+        assertThat(html, containsString("<a href=\"/wishlist\">Cancel</a>"));
+
+        // Cancel link appears in the edit block for item 5
+        assertThat(html, containsString("value=\"5\"")); // edit block for item 5
+        assertThat(html, containsString("<a href=\"/wishlist\">Cancel</a>"));
+
+        // Cancel link does NOT appear in item 7's block
+        String item7Block = html.substring(html.indexOf("Keyboard"));
+        assertThat(item7Block, not(containsString("Cancel</a>")));
     }
 
 }
