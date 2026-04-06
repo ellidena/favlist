@@ -1,15 +1,12 @@
 package com.favlist.controller;
 
 import com.favlist.model.Wishlist;
-import com.favlist.model.WishlistEntry;
 import com.favlist.service.UserService;
 import com.favlist.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/wishlist")
