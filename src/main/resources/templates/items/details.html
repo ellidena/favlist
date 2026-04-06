@@ -13,11 +13,35 @@
   <span th:text="${item.description}">Description here</span>
 </p>
 
-<form action="/wishlist/add" method="post">
-  <input type="hidden" name="itemId" th:value="${item.itemId}">
-  <input type="text" name="note" placeholder="Note">
-  <button type="submit">Add to wishlist</button>
-</form>
+<!-- If NOT in wishlist: show Add form -->
+<div th:if="${!wishlistItemIds.contains(item.itemId)}">
+  <form action="/wishlist/add" method="post">
+    <input type="hidden" name="itemId" th:value="${item.itemId}">
+    <input type="text" name="note" placeholder="Note">
+    <button type="submit">Add to wishlist</button>
+  </form>
+</div>
+
+<!-- If already in wishlist: show Edit + Remove -->
+<div th:if="${wishlistItemIds.contains(item.itemId)}">
+
+  <p><strong>Your note:</strong>
+    <span th:text="${entryNote}">No note</span>
+  </p>
+
+  <form action="/wishlist/update-note" method="post">
+    <input type="hidden" name="itemId" th:value="${item.itemId}">
+    <input type="text" name="note" placeholder="Update note">
+    <button type="submit">Save note</button>
+  </form>
+
+  <form action="/wishlist/remove" method="post">
+    <input type="hidden" name="itemId" th:value="${item.itemId}">
+    <input type="hidden" name="redirect" value="/items">
+    <button type="submit">Remove from wishlist</button>
+  </form>
+</div>
+
 
 <p><strong>Category ID:</strong>
   <span th:text="${item.categoryId}">1</span>
