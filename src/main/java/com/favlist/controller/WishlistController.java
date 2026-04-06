@@ -54,12 +54,15 @@ public class WishlistController {
     }
 
     @PostMapping("/update-note")
-    public String updateNote(@RequestParam int itemId, @RequestParam String note) {
+    public String updateNote(
+            @RequestParam int itemId,
+            @RequestParam String note,
+            @RequestParam(required = false) String redirect) {
         int userId = 1;
         Wishlist wishlist = userService.getWishlistForUser(userId);
 
         wishlistService.updateNote(wishlist.getWishlistId(), itemId, note);
-        return "redirect:/wishlist";
+        return "redirect:" + (redirect != null ? redirect : "/wishlist");
     }
 
     @ResponseBody

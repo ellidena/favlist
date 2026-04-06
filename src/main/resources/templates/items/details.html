@@ -31,7 +31,8 @@
 
   <form action="/wishlist/update-note" method="post">
     <input type="hidden" name="itemId" th:value="${item.itemId}">
-    <input type="text" name="note" placeholder="Update note">
+    <input type="hidden" name="redirect" th:value="@{'/items/' + ${item.itemId}}">
+    <input type="text" name="note" th:value="${entryNote}">
     <button type="submit">Save note</button>
   </form>
 
