@@ -10,17 +10,35 @@
 <h1>Your Wishlist</h1>
 
 <ul>
-  <li th:each="entry : ${entries}">
+  <li th:each="entry : ${entries}"
+      th:classappend="${param.edit != null and param.edit[0] == entry.itemId.toString()} ? 'editing' : ''">
+
     <strong th:text="${entry.itemName}">Item Name</strong>
-    (ID: <span th:text="${entry.itemId}"></span>)
 
-    Note: <span th:text="${entry.note}"></span>
+    <!-- EDIT MODE -->
+    <div th:if="${param.edit != null and param.edit[0] == entry.itemId.toString()}">
+      <form action="/wishlist/update-note" method="post">
+        <input type="hidden" name="itemId" th:value="${entry.itemId}">
+        <input type="text" name="note" th:value="${entry.note}">
+        <button type="submit">Save</button>
+      </form>
 
-    <form action="/wishlist/remove" method="post">
-      <input type="hidden" name="itemId" th:value="${entry.itemId}">
-      <input type="hidden" name="redirect" th:value="@{/wishlist}">
-      <button type="submit">Remove</button>
-    </form>
+      <a href="/wishlist">Cancel</a>
+    </div>
+
+    <!-- VIEW MODE -->
+    <div th:if="${param.edit == null or param.edit[0] != entry.itemId.toString()}">
+      <span><strong>Note:</strong> <span th:text="${entry.note}"></span></span>
+      <a th:href="@{'/wishlist'(edit=${entry.itemId})}">Edit</a>
+
+      <form action="/wishlist/remove" method="post" style="display:inline;">
+        <input type="hidden" name="itemId" th:value="${entry.itemId}">
+        <input type="hidden" name="redirect" th:value="@{/wishlist}">
+        <button type="submit">Remove</button>
+      </form>
+    </div>
+
+  </li>
 
   </li>
 </ul>
