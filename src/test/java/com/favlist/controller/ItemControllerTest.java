@@ -212,6 +212,22 @@ public class ItemControllerTest {
                 .andExpect(content().string(containsString("<a href=\"/items/5\">Lamp</a>")));
     }
 
+    @Test
+    void listItems_showsEmptyStateWhenNoItems() throws Exception {
+        when(itemService.getAllItems()).thenReturn(List.of());
+        when(itemService.getAllCategories()).thenReturn(List.of());
+        when(wishlistService.getWishlistItemIds(1)).thenReturn(Set.of());
 
+        mockMvc.perform(get("/items"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("items/list"))
+
+                // No item links
+                .andExpect(content().string(not(containsString("<a href=\"/items/"))))
+
+                // No Add or Remove forms
+                .andExpect(content().string(not(containsString("<form action=\"/wishlist/add\""))))
+                .andExpect(content().string(not(containsString("<form action=\"/wishlist/remove\""))));
+    }
 
 }
